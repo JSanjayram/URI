@@ -10,7 +10,7 @@ def download(video_id):
           'format': 'bestaudio/best',
           'quiet': True,
           'proxy': 'http://your_proxy_address:port',  # Replace with your proxy details
-          'socket_timeout': 30,
+          'socket_timeout': 60,
       }
     with yt_dlp.YoutubeDL(ydl_opts) as ydl:
         try:
