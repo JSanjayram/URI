@@ -10,10 +10,10 @@ def get_audio_url(video_id):
         result = ydl.extract_info(f'https://www.youtube.com/watch?v={video_id}', download=False)
         if 'formats' in result:
             # Extract the best audio stream URL
-            audio_url = result['formats'][0]['url']  # Use the desired format, typically the first entry
+            audio_url = result['formats'][0]['url']
             return audio_url
 
-video_id = "QqEarYb0Uaw"
+video_id = "QqEarYb0Uaw"  # Example video ID
 audio_url = get_audio_url(video_id)
 print(audio_url)
 
