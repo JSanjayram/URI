@@ -20,6 +20,8 @@ def get_audio_url(video_id):
             'format': 'bestaudio/best',
             'quiet': True,
             'proxy': proxy,
+            'socket_timeout': 30,  # Increase timeout to 30 seconds
+
         }
 
         with yt_dlp.YoutubeDL(ydl_opts) as ydl:
