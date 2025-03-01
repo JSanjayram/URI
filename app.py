@@ -4,6 +4,8 @@ def get_audio_url(video_id):
     ydl_opts = {
         'format': 'bestaudio/best',  # Prefer audio format
         'quiet': True,
+        'user_agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.3',
+
     }
 
     with yt_dlp.YoutubeDL(ydl_opts) as ydl:
