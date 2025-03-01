@@ -7,7 +7,7 @@ import time
 browser_profile = os.path.expanduser('~/.config/google-chrome/Default/Cookies')  # Adjust path for your OS
 
 # Path to your browser's webdriver (e.g., ChromeDriver)
-driver_path = '/path/to/chromedriver'
+driver_path = 'chromedriver'
 
 # Create a new instance of Chrome (or any browser you prefer)
 driver = webdriver.Chrome(driver_path)
