@@ -1,29 +1,25 @@
-import os
 import yt_dlp
-from flask import Flask
 
-app = Flask(__name__)
-
-@app.route('/download/<video_id>')
-def download(video_id):
+def get_audio_url(video_id):
     ydl_opts = {
-          'format': 'bestaudio/best',
-          'quiet': True,
-          'proxy': 'http://your_proxy_address:port',  # Replace with your proxy details
-          'socket_timeout': 60,
-      }
-    with yt_dlp.YoutubeDL(ydl_opts) as ydl:
-        try:
-            result = ydl.extract_info(f'https://www.youtube.com/watch?v={video_id}', download=False)
-            if 'formats' in result:
-                audio_url = result['formats'][0]['url']
-            return audio_url
-        except Exception as e:
-            return f"Error: {e}"
+        'format': 'bestaudio/best',  # Prefer audio format
+        'quiet': True,
+        'user_agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.3',
+        'socket_timeout': 60,
 
-if __name__ == '__main__':
-    port = int(os.environ.get('PORT', 5000))
-    app.run(host='0.0.0.0', port=port)
+
+    }
+
+    with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+        result = ydl.extract_info(f'https://www.youtube.com/watch?v={video_id}', download=False)
+        if 'formats' in result:
+            # Extract the best audio stream URL
+            audio_url = result['formats'][0]['url']
+            return audio_url
+
+video_id = "QqEarYb0Uaw"  # Example video ID
+audio_url = get_audio_url(video_id)
+print(audio_url)
 
 
 """from flask import Flask, jsonify
