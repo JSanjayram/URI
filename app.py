@@ -1,19 +1,38 @@
 import yt_dlp
+import itertools
+import time
+
+# List of proxy servers
+proxies = [
+    'http://89.116.34.113:80',
+    'http://219.65.73.81:80',
+    'http://103.163.244.212:82',
+    'http://14.143.130.210:80'
+]
+
+# Create an iterator to cycle through the proxies
+proxy_pool = itertools.cycle(proxies)
 
 def get_audio_url(video_id):
-    ydl_opts = {
-        'format': 'bestaudio/best',  # Prefer audio format
-        'quiet': True,
-        'user_agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.3',
+    for _ in range(len(proxies)):
+        proxy = next(proxy_pool)
+        ydl_opts = {
+            'format': 'bestaudio/best',
+            'quiet': True,
+            'proxy': proxy,
+        }
 
-    }
+        with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+            try:
+                result = ydl.extract_info(f'https://www.youtube.com/watch?v={video_id}', download=False)
+                if 'formats' in result:
+                    audio_url = result['formats'][0]['url']
+                    return audio_url
+            except Exception as e:
+                print(f"Error with proxy {proxy}: {e}")
+                time.sleep(5)  # Wait before trying the next proxy
 
-    with yt_dlp.YoutubeDL(ydl_opts) as ydl:
-        result = ydl.extract_info(f'https://www.youtube.com/watch?v={video_id}', download=False)
-        if 'formats' in result:
-            # Extract the best audio stream URL
-            audio_url = result['formats'][0]['url']
-            return audio_url
+    raise Exception("All proxies failed.")
 
 video_id = "QqEarYb0Uaw"  # Example video ID
 audio_url = get_audio_url(video_id)
