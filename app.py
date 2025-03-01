@@ -2,6 +2,8 @@ import yt_dlp
 video_url = 'https://www.youtube.com/watch?v=QqEarYb0Uaw'
 ydl_opts = {
         'format': 'bestaudio/best',
+        'nocheckcertificate': True,
+
     }
 
 with yt_dlp.YoutubeDL(ydl_opts) as ydl:
