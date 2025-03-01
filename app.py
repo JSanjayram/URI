@@ -6,6 +6,7 @@ def get_audio_url(video_id):
         'quiet': True,
         'user_agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.3',
         'socket_timeout': 60,
+        'cookies': 'cookies.txt'  # Add the path to your cookies file
 
 
     }
