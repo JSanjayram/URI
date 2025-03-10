@@ -6,7 +6,6 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.chrome.options import Options
 from selenium import webdriver
-from selenium.webdriver.chrome.service import 
 from selenium.webdriver.chrome.options import Options
 
 # Initialize Flask app
