@@ -1,6 +1,12 @@
 services:
-- type: web
-  name: youtube-dl
-  env: python
-  buildCommand: ""
-  startCommand: "./start.sh"
+  - type: web
+    name: selenium-flask-app  # Your application's name
+    env: python  # Specifies Python as the runtime environment
+    buildCommand: |
+      # Update system packages and install Chromium and ChromeDriver
+      apt-get update && apt-get install -y chromium chromium-driver
+      
+      # Install Python dependencies
+      pip install -r requirements.txt
+    startCommand: gunicorn --bind 0.0.0.0:5000 app:app  # Command to start the Flask app
+    plan: free  # Choose the Render plan, e.g., free or standard
