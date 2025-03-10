@@ -1,21 +1,25 @@
-import yt_dlp
+from flask import Flask, request, jsonify
+from yt_dlp import YoutubeDL
 
-def get_audio_url(video_id):
+app = Flask(__name__)
+
+@app.route('/get-stream-url', methods=['GET'])
+def get_stream_url():
+    video_id = request.args.get('QqEarYb0Uaw')  # Pass video_id as a query parameter
+    video_url = f"https://www.youtube.com/watch?v={video_id}"
+
     ydl_opts = {
-        'format': 'bestaudio/best',  # Prefer audio format
         'quiet': True,
-        'socket_timeout': 60,
-        'cookies': 'cookies.txt'  # Add the path to your cookies file
-
-
+        'format': 'bestaudio/best',
     }
 
-    with yt_dlp.YoutubeDL(ydl_opts) as ydl:
-        result = ydl.extract_info(f'https://www.youtube.com/watch?v={video_id}', download=False)
-        if 'formats' in result:
-            # Extract the best audio stream URL
-            audio_url = result['formats'][0]['url']
-            return audio_url
+    with YoutubeDL(ydl_opts) as ydl:
+        info = ydl.extract_info(video_url, download=False)
+        stream_url = info.get('url')
+        return jsonify({'stream_url': stream_url})
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=5000)
 
 video_id = "QqEarYb0Uaw"  # Example video ID
 audio_url = get_audio_url(video_id)
