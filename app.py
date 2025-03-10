@@ -7,6 +7,7 @@ from selenium.webdriver.support import expected_conditions as EC
 
 # Initialize Flask app
 app = Flask(__name__)
+from selenium.webdriver.chrome.options import Options
 
 def extract_audio_streaming_uri(video_id):
     """
@@ -20,8 +21,15 @@ def extract_audio_streaming_uri(video_id):
     """
     video_url = f"https://www.youtube.com/watch?v={video_id}"
 
-    # Set up Selenium WebDriver
-    driver = webdriver.Chrome(service=Service("path_to_chromedriver"))  # Update the path
+    # Configure ChromeDriver options for headless mode
+    chrome_options = Options()
+    chrome_options.add_argument("--headless")
+    chrome_options.add_argument("--disable-dev-shm-usage")
+    chrome_options.add_argument("--no-sandbox")
+    chrome_options.add_argument("--disable-gpu")
+
+    # Set up Selenium WebDriver with headless Chrome
+    driver = webdriver.Chrome(service=Service("/usr/bin/chromedriver"), options=chrome_options)
     try:
         driver.get(video_url)
 
