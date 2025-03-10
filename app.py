@@ -20,11 +20,11 @@ def get_stream_url():
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)
-
+"""
 video_id = "QqEarYb0Uaw"  # Example video ID
 audio_url = get_audio_url(video_id)
 print(audio_url)
-
+"""
 
 """from flask import Flask, jsonify
 import yt_dlp
