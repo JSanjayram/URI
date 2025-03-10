@@ -2,6 +2,7 @@ FROM python:3.9-slim
 
 # Install Chromium and ChromeDriver
 RUN apt-get update && apt-get install -y chromium chromium-driver
+RUN chromium-browser --version && chromedriver --version
 
 # Set the working directory
 WORKDIR /app
