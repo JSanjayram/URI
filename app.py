@@ -5,7 +5,7 @@ app = Flask(__name__)
 
 @app.route('/get-stream-url', methods=['GET'])
 def get_stream_url():
-    video_id = request.args.get('QqEarYb0Uaw')  # Pass video_id as a query parameter
+    video_id = request.args.get('video_id')  # Pass video_id as a query parameter
     video_url = f"https://www.youtube.com/watch?v={video_id}"
 
     ydl_opts = {
