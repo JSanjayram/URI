@@ -1,12 +1,9 @@
 services:
   - type: web
-    name: selenium-flask-app  # Your application's name
-    env: python  # Specifies Python as the runtime environment
-    buildCommand: |
-      # Update system packages and install Chromium and ChromeDriver
-      apt-get update && apt-get install -y chromium chromium-driver
-      
-      # Install Python dependencies
-      pip install -r requirements.txt
-    startCommand: gunicorn --bind 0.0.0.0:5000 app:app  # Command to start the Flask app
-    plan: free  # Choose the Render plan, e.g., free or standard
+    name: selenium-flask-app  # Your service name
+    env: docker  # Use "docker" for a Docker-based deployment
+    dockerfilePath: Dockerfile  # Path to your Dockerfile in the root directory
+    plan: free  # Define your Render plan
+    envVars:
+      - key: PORT
+        value: 5000  # Ensures Flask or Gunicorn listens on the correct port
